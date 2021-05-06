@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
 import './database';
+import productoRoutes from './routes/producto.routes'
 
 // configuraciones
 // crear una instancia de express
@@ -23,6 +24,4 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'../public')));
 
 // creo una ruta
-app.get('/', (req, res)=>{
-    res.send('Hola esta es una prueba del backend');
-})
+app.use('/api/cafeteria', productoRoutes);
