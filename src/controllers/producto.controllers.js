@@ -33,4 +33,33 @@ cafeteriaCtrl.nuevoProducto = async(req, res) =>{
     }
 }
 
+cafeteriaCtrl.listarProducto = async (req, res)=>{
+    try{
+        // crear un arreglo con todos los productos
+        const arregloProductos = await Producto.find();
+        // responder al frontend
+        res.status(200).json(arregloProductos);
+    }catch(error){
+        console.log(error);
+        res.status(404).json({
+            mensaje: 'No se pudo obtener los productos'
+        })
+    }
+}
+
+cafeteriaCtrl.eliminarProducto = async(req, res) =>{
+    try{
+        console.log(req.params.id);
+        // eliminar un producto usando su id
+        await Producto.findByIdAndDelete(req.params.id);
+        res.status(200).json({mensaje: 'se pudo eliminar el producto correctamente'})
+    }catch(error){
+        console.log(error);
+        res.status(404).json({
+            mensaje: 'No se pudo eliminar el producto'
+        })
+    }
+}
+
+
 export default cafeteriaCtrl;
